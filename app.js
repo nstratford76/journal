@@ -35,6 +35,9 @@ const corsOptions = {
   optionsSuccessStatus: 200
 };
 
+const journalRoutes = require('./routes/journal');
+const authRoutes = require('./routes/auth')
+
 app.use(
   session({
     secret: 'my secret', 
@@ -73,7 +76,9 @@ app.use((req, res, next) => {
 app.use(express.static(path.join(__dirname, 'public')))
    .use(bodyParser({extended: false}))
    .set('views', path.join(__dirname, 'views'))
-   .set('view engine', 'ejs');
+   .set('view engine', 'ejs')
+   .use(authRoutes)
+   .use(journalRoutes);
   
    app.use(cors(corsOptions));
   

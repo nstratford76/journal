@@ -13,14 +13,11 @@ router.get('/entries', isAuth, journalController.getEntries);
 
 router.get('/entries/:entryId', isAuth, journalController.getEntry);
 
-// router.get('/cart', isAuth, journalController.getCart);
+router.get('/journal', isAuth, journalController.getJournal);
 
-// router.post('/cart', isAuth, journalController.postCart);
+router.post('/journal', isAuth, journalController.postJournal);
 
-// router.post('/cart-delete-item', isAuth, journalController.postCartDeleteProduct);
+router.post('/journal-delete-item', isAuth, journalController.postJournalDeleteEntry);
 
-// router.post('/create-order',isAuth, journalController.postOrder);
-
-// router.get('/orders', isAuth, journalController.getOrders);
 
 module.exports = router;
