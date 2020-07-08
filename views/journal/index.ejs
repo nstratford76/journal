@@ -1,0 +1,37 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/stylesheets/product.css">
+</head>
+
+<body>
+    <%- include('../includes/navigation.ejs') %>
+
+
+    <main>
+
+        <% if (entries.length > 0) { %>
+        <h1>Memory Saver</h1>
+        <h2>Never lose a single cherished moment</h2>
+        <div class="grid">
+            <% for (let entries of entries) { %>
+            <article class="card entry-item">
+                <header class="card__header">
+                    <h1 class="entry__title"><%= entry.title %></h1>
+                </header>
+                <div class="card__image">
+                    <img src="<%= entry.imageUrl %>" alt="<%= entry.title %>">
+                </div>
+                <div class="card__content">
+                    <p class="entry__description"><%= entry.description %></p>
+                </div>
+                <div class="card__actions">
+                    <a href="/entrys/<%= entry._id %>" class="btn">Details</a>
+                    <%- include('../includes/add-to-cart.ejs', {entry: entry}) %>
+                </div>
+            </article>
+            <% } %>
+        </div>
+        <% } else { %>
+        <h1>No entries Found!</h1>
+        <% } %>
+    </main>
+    <%- include('../includes/end.ejs') %>

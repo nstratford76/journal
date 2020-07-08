@@ -4,6 +4,7 @@ const express = require('express');
 const app = express();
 const mongodb = require('mongodb');
 const mongoose = require('mongoose');
+const session = require('express-session');
 const bodyParser = require('body-parser');
 //const session = require('express-session');
 
@@ -19,7 +20,7 @@ const options = {
 const MongoDBStore = require('connect-mongodb-session')(session);
 //const csrf = require('csurf');
 //const flash = require('connect-flash');
-const MONGODB_URL = process.env.MONGODB_URL || "mongodb+srv://nstratford:oiULZhBv4GScY01R@cluster0-7ss0g.mongodb.net/test";
+const MONGODB_URL = process.env.MONGODB_URL || "mongodb+srv://nstratford:PL3r9p9URkOCtXb1@cluster0-7ss0g.mongodb.net/test";
 const store = new MongoDBStore({
    uri: MONGODB_URL,
    collection: 'sessions'

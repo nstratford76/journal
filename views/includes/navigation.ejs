@@ -4,27 +4,18 @@
     <nav class="main-header__nav">
         <ul class="main-header__item-list">
             <li class="main-header__item">
-                <a class="<%= path === '/' ? 'active' : '' %>" href="/">Shop</a>
+                <a class="<%= path === '/' ? 'active' : '' %>" href="/">Journal</a>
             </li>
             <li class="main-header__item">
-                <a class="<%= path === '/products' ? 'active' : '' %>" href="/products">Products</a>
+                <a class="<%= path === '/entries' ? 'active' : '' %>" href="/entries">Entries</a>
             </li>
             <% if (isAuthenticated) { %>
-            <li class="main-header__item">
-                <a class="<%= path === '/cart' ? 'active' : '' %>" href="/cart">Cart</a>
-            </li>
-            <li class="main-header__item">
-                <a class="<%= path === '/orders' ? 'active' : '' %>" href="/orders">Orders</a>
-            </li>
             
             <li class="main-header__item">
-                <a class="<%= path === '/admin/add-product' ? 'active' : '' %>" href="/admin/add-product">Add Product
+                <a class="<%= path === '/journal/add-entry' ? 'active' : '' %>" href="/journal/add-entry">Add Entry
                 </a>
             </li>
-            <li class="main-header__item">
-                <a class="<%= path === '/admin/products' ? 'active' : '' %>" href="/admin/products">Admin Products
-                </a>
-            </li>
+           
             <% } %>
         </ul>
         
@@ -56,7 +47,7 @@
             <a class="<%= path === '/entries' ? 'active' : '' %>" href="/entries">Entries</a>
         </li>
         <li class="mobile-nav__item">
-            <a class="<%= path === '/admin/add-entry' ? 'active' : '' %>" href="/admin/add-entry">Add Entry
+            <a class="<%= path === '/journal/add-entry' ? 'active' : '' %>" href="/journal/add-entry">Add Entry
             </a>
         </li>
     </ul>
