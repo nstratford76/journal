@@ -7,10 +7,6 @@ const entrySchema = new Schema({
     type: String,
     required: true
   },
-  date: {
-      type: Date,
-      required: true
-  },
   body: {
     type: String,
     required: true
@@ -18,6 +14,10 @@ const entrySchema = new Schema({
   imageUrl: {
     type: String,
     required: false
+  },
+  date: {
+    type: String,
+    required: true
   },
   userId: {
     type: Schema.Types.ObjectId,

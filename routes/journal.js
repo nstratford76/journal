@@ -3,21 +3,25 @@ const path = require('path');
 const express = require('express');
 
 const journalController = require('../controllers/journal');
-const isAuth = require('../middleware/is-auth');
+//const isAuth = require('../middleware/is-auth');
 
 const router = express.Router();
 
-router.get('/', isAuth, journalController.getIndex);
+router.get('/', journalController.getIndex);
 
-router.get('/entries', isAuth, journalController.getEntries);
+router.get('/add-entry', journalController.getAddEntry);
 
-router.get('/entries/:entryId', isAuth, journalController.getEntry);
+router.get('/entries', journalController.getEntries);
 
-router.get('/journal', isAuth, journalController.getJournal);
+router.get('/entries/:entryId', journalController.getEntry);
 
-router.post('/journal', isAuth, journalController.postJournal);
+router.get('/journal', journalController.getJournal);
 
-router.post('/journal-delete-item', isAuth, journalController.postJournalDeleteEntry);
+router.post('/entries', journalController.postAddEntry);
+
+router.post('/journal', journalController.postJournal);
+
+router.post('/journal-delete-item', journalController.postJournalDeleteEntry);
 
 
 module.exports = router;

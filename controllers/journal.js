@@ -1,10 +1,40 @@
 const Entry = require('../models/entry');
 
 
+exports.getAddEntry = (req, res, next) => {
+  res.render('journal/add-entry', {
+    pageTitle: 'Add Entry',
+    path: '/journal/add-entry'
+  });
+};
+
+exports.postAddEntry = (req, res, next) => {
+  const title = req.body.title;
+  const imageUrl = req.body.imageUrl;
+  const description = req.body.description;
+  const entry = new Entry({
+    title: title, 
+    description: description, 
+    imageUrl: imageUrl,
+    userId: req.user
+  });
+  entry
+    .save()
+    .then(result => {
+      // console.log(result);
+      console.log('Created Entry');
+      res.redirect('/journal/entries');
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
+
+
 exports.getEntries = (req, res, next) => {
   Entry.find()
     .then(entries => {
-      res.render('journal/entry-list', {
+      res.render('journal/entries', {
         entries: entries,
         pageTitle: 'All entries',
         path: '/entries',

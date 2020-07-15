@@ -3,11 +3,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-  name: {
+  email: {
     type: String,
     required: true
   },
-  email: {
+  password: {
     type: String, 
     required: true
   },
@@ -48,7 +48,7 @@ userSchema.methods.addToJournal = function(entry) {
   return this.save();
 };
 
-userSchema.methods.removeFromCart = function(entryId) {
+userSchema.methods.removeFromJournal = function(entryId) {
   const updatedJournalEntries = this.journal.entries.filter(entry => {
     return entry.entryId.toString() !== entryId.toString();
   });
@@ -56,7 +56,7 @@ userSchema.methods.removeFromCart = function(entryId) {
   return this.save();
 };
 
-userSchema.methods.clearCart = function() {
+userSchema.methods.clearJournal = function() {
   this.journal = { entries: [] };
   return this.save();
 };

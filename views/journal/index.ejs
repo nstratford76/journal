@@ -24,8 +24,8 @@
                     <p class="entry__description"><%= entry.description %></p>
                 </div>
                 <div class="card__actions">
-                    <a href="/entrys/<%= entry._id %>" class="btn">Details</a>
-                    <%- include('../includes/add-to-cart.ejs', {entry: entry}) %>
+                    <a href="/entries/<%= entry._id %>" class="btn">View Entry</a>
+                  
                 </div>
             </article>
             <% } %>

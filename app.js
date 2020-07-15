@@ -17,15 +17,21 @@ const options = {
   family: 4
 };
 
+
 const MongoDBStore = require('connect-mongodb-session')(session);
-//const csrf = require('csurf');
-//const flash = require('connect-flash');
+// const csrf = require('csurf');
+// const flash = require('connect-flash');
 const MONGODB_URL = process.env.MONGODB_URL || "mongodb+srv://nstratford:PL3r9p9URkOCtXb1@cluster0-7ss0g.mongodb.net/test";
 const store = new MongoDBStore({
    uri: MONGODB_URL,
    collection: 'sessions'
  });
 
+ const journalRoutes = require('./routes/journal');
+ app.use(express.static(path.join(__dirname, 'public')))
+   .use(bodyParser({extended: false}))
+   .set('views', path.join(__dirname, 'views'))
+   .set('view engine', 'ejs');
 
 const cors = require('cors'); 
 const User = require('./models/user');
@@ -35,8 +41,10 @@ const corsOptions = {
   optionsSuccessStatus: 200
 };
 
-const journalRoutes = require('./routes/journal');
-const authRoutes = require('./routes/auth')
+
+//const authRoutes = require('./routes/auth')
+
+
 
 app.use(
   session({
@@ -58,8 +66,8 @@ app.use(
     })
     .catch(err => console.log(err));
  });
-//app.use(csrfProtection);
-//app.use(flash());
+// app.use(csrfProtection);
+// app.use(flash());
 
 app.use((req, res, next) => {
   if (!req.session.user) {
@@ -73,12 +81,14 @@ app.use((req, res, next) => {
     .catch(err => console.log(err));
 });
 
-app.use(express.static(path.join(__dirname, 'public')))
-   .use(bodyParser({extended: false}))
-   .set('views', path.join(__dirname, 'views'))
-   .set('view engine', 'ejs')
-   .use(authRoutes)
-   .use(journalRoutes);
+// app.use((req, res, next) => {
+//   res.locals.isAuthenticated = req.session.isLoggedIn;
+//   res.locals.csrfToken = req.csrfToken();
+//   next();
+// });
+
+//app.use(authRoutes);
+app.use(journalRoutes);
   
    app.use(cors(corsOptions));
   

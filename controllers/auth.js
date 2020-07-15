@@ -11,12 +11,11 @@ exports.getLogin = (req, res, next) => {
 
 exports.getSignup = (req, res, next) => {
     res.render('auth/signup', {
-        path: '/signup',
-        pageTitle: 'Signup',
-        isAuthenticated: false
+      path: '/signup',
+      pageTitle: 'Signup',
+      isAuthenticated: false
     });
-};
-
+  };
 
 exports.postLogin = (req, res, next) => {
     const email = req.body.email;
@@ -64,7 +63,7 @@ exports.postSignup = (req, res, next) => {
                     const user = new User({
                         email: email,
                         password: hashedPassword,
-                        cart: { items: [] }
+                        journal: { entries: [] }
                     });
                     return user.save();
                 })
