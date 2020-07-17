@@ -5,7 +5,7 @@ exports.getLogin = (req, res, next) => {
     res.render('auth/login', {
         path: '/login',
         pageTitle: 'Login',
-        isAuthenticated: false
+       isAuthenticated: false 
     });
 };
 
@@ -20,15 +20,17 @@ exports.getSignup = (req, res, next) => {
 exports.postLogin = (req, res, next) => {
     const email = req.body.email;
     const password = req.body.password;
-    User.findById({email: email})
+    User.findOne({email: email})
         .then(user => {
             if (!user) {
+                console.log("invalid username");
                 return res.redirect('/login');
             }
             bcrypt
               .compare(password, user.password)
               .then(doMatch => {
                   if (doMatch) {
+                      console.log("Password matches");
                       req.session.isLoggedIn = true;
                       req.session.user = user;
                       return req.session.save(err => {
@@ -36,14 +38,15 @@ exports.postLogin = (req, res, next) => {
                           res.redirect('/');
                       });
                   }
-                  res.redirect('/login');
+                  console.log("made it here");
+                  return res.redirect('/login');
               })
-            req.session.isLoggedIn = true;
-            req.session.user = user;
-            req.session.save(err => {
-                console.log(err);
-                res.redirect('/');
-            });
+            // req.session.isLoggedIn = true;
+            // req.session.user = user;
+            // req.session.save(err => {
+            //     console.log(err);
+            //     res.redirect('/');
+            //});
         })
         .catch(err => console.log(err));
 };

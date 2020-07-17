@@ -12,7 +12,7 @@
         <h1>Memory Saver</h1>
         <h2>Never lose a single cherished moment</h2>
         <div class="grid">
-            <% for (let entries of entries) { %>
+            <% for (let entry of entries) { %>
             <article class="card entry-item">
                 <header class="card__header">
                     <h1 class="entry__title"><%= entry.title %></h1>
@@ -21,11 +21,21 @@
                     <img src="<%= entry.imageUrl %>" alt="<%= entry.title %>">
                 </div>
                 <div class="card__content">
+                    <h2 class="entry__date"><%= entry.date %></h2>
+                </div>
+                <div class="card__content">
                     <p class="entry__description"><%= entry.description %></p>
                 </div>
                 <div class="card__actions">
                     <a href="/entries/<%= entry._id %>" class="btn">View Entry</a>
-                  
+
+                </div>
+                <div class="card__actions">
+                    <form action="/delete-entry" method="POST">
+                        <input type="hidden" value="<%= entry._id %>" name="entryId">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <button class="btn" type="submit">Delete</button>
+                    </form>
                 </div>
             </article>
             <% } %>

@@ -1,35 +1,43 @@
 <%- include('../includes/head.ejs') %>
-    <link rel="stylesheet" href="/stylesheets/entry.css">
-    </head>
+<link rel="stylesheet" href="/stylesheets/entry.css">
+</head>
 
-    <body>
-        <%- include('../includes/navigation.ejs') %>
+<body>
+    <%- include('../includes/navigation.ejs') %>
 
-            <main>
-                <% if (entries.length > 0) { %>
-                    <div class="grid">
-                        <% for (let entry of entries) { %>
-                            <article class="card entry-item">
-                                <header class="card__header">
-                                    <h1 class="entry__title">
-                                        <%= entry.title %>
-                                    </h1>
-                                </header>
-                                <div class="card__image">
-                                    <img src="<%= entry.imageUrl %>" alt="<%= entry.title %>">
-                                </div>
-                                    <p class="entry__description">
-                                        <%= entry.description %>
-                                    </p>
-                                </div>
-                                <div class="card__actions">
-                                    <a href="/entries/<%= entry._id %>" class="btn">Details</a>  
-                                </div>
-                            </article>
-                            <% } %>
-                    </div>
-                    <% } else { %>
-                        <h1>No entrys Found!</h1>
-                        <% } %>
-            </main>
-            <%- include('../includes/end.ejs') %>
+    <main>
+        <% if (entries.length > 0) { %>
+        <div class="grid">
+            <% for (let entry of entries) { %>
+            <article class="card entry-item">
+                <header class="card__header">
+                    <h1 class="entry__title">
+                        <%= entry.title %>
+                    </h1>
+                </header>
+                <div class="card__image">
+                    <img src="<%= entry.imageUrl %>" alt="<%= entry.title %>">
+                </div>
+                <p class="entry__description">
+                    <%= entry.description %>
+                </p>
+        
+        <div class="card__actions">
+            <a href="/entries/<%= entry._id %>" class="btn">Details</a>
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        </div>
+        <div class="card__actions">
+            <form action="/delete-entry" method="POST">
+                <input type="hidden" value="<%= entry._id %>" name="entryId">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <button class="btn" type="submit">Delete</button>
+            </form>
+        </div>
+        </article>
+        <% } %>
+    </div>
+        <% } else { %>
+        <h1>No entries Found!</h1>
+        <% } %>
+    </main>
+    <%- include('../includes/end.ejs') %>

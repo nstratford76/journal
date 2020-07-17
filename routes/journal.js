@@ -3,25 +3,27 @@ const path = require('path');
 const express = require('express');
 
 const journalController = require('../controllers/journal');
-//const isAuth = require('../middleware/is-auth');
+const isAuth = require('../middleware/is-auth');
 
 const router = express.Router();
 
-router.get('/', journalController.getIndex);
+router.get('/', isAuth, journalController.getIndex);
 
-router.get('/add-entry', journalController.getAddEntry);
+router.get('/add-entry', isAuth, journalController.getAddEntry);
 
-router.get('/entries', journalController.getEntries);
+router.get('/entries', isAuth, journalController.getEntries);
 
-router.get('/entries/:entryId', journalController.getEntry);
+router.get('/entries/:entryId', isAuth, journalController.getEntry);
 
-router.get('/journal', journalController.getJournal);
+router.get('/journal', isAuth, journalController.getJournal);
 
-router.post('/entries', journalController.postAddEntry);
+router.post('/entries', isAuth, journalController.postAddEntry);
 
-router.post('/journal', journalController.postJournal);
+router.post('/journal', isAuth, journalController.postJournal);
 
-router.post('/journal-delete-item', journalController.postJournalDeleteEntry);
+router.post('/delete', isAuth, journalController.postJournalDeleteEntry);
+
+router.post('/delete-entry', isAuth, journalController.postDeleteEntry);
 
 
 module.exports = router;

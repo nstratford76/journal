@@ -12,10 +12,12 @@ exports.postAddEntry = (req, res, next) => {
   const title = req.body.title;
   const imageUrl = req.body.imageUrl;
   const description = req.body.description;
+  const date = req.body.date;
   const entry = new Entry({
     title: title, 
     description: description, 
     imageUrl: imageUrl,
+    date: date,
     userId: req.user
   });
   entry
@@ -23,7 +25,7 @@ exports.postAddEntry = (req, res, next) => {
     .then(result => {
       // console.log(result);
       console.log('Created Entry');
-      res.redirect('/journal/entries');
+      res.redirect('/entries');
     })
     .catch(err => {
       console.log(err);
@@ -108,10 +110,19 @@ exports.postJournal = (req, res, next) => {
 
 exports.postJournalDeleteEntry = (req, res, next) => {
   const entryId = req.body.entryId;
-  req.user
-    .deleteEntryFromJournal(entryId)
+  req.user.removeFromJournal(entryId)
     .then(result => {
-      res.redirect('/journal');
+      res.redirect('/delete-entry');
+    })
+    .catch(err => console.log(err));
+};
+
+exports.postDeleteEntry = (req, res, next) => {
+  const entryId = req.body.entryId;
+  Entry.findByIdAndRemove(entryId)
+    .then(() => {
+      console.log('DESTROYED PRODUCT');
+      res.redirect('/entries');
     })
     .catch(err => console.log(err));
 };
